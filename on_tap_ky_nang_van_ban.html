@@ -1,0 +1,2626 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ôn Tập – Kỹ Năng Tạo Lập Văn Bản Tiếng Việt</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --c1: #1a3a5c;
+        --c1l: #e8f0f8;
+        --c1m: #4a7ab0;
+        --c2: #1e5c3a;
+        --c2l: #e6f4ec;
+        --c2m: #4aab75;
+        --c3: #5c2d1a;
+        --c3l: #f8ede8;
+        --c3m: #c46a40;
+        --bg: #f5f3ee;
+        --card: #fff;
+        --text: #1a1a1a;
+        --muted: #6b6b6b;
+        --border: #ddd8cc;
+        --radius: 10px;
+        --quiz-correct: #dcf5e7;
+        --quiz-wrong: #fde8e8;
+        --quiz-neutral: #f0f0f0;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      /* HEADER */
+      .hero {
+        background: var(--c1);
+        color: #fff;
+        padding: 2rem 1.5rem 1.5rem;
+        text-align: center;
+      }
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.9rem;
+        margin-bottom: 0.4rem;
+      }
+      .hero p {
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+      .pill-row {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+      .pill {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .pill:hover,
+      .pill.active {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* NAV TABS */
+      .tabs {
+        display: flex;
+        background: #fff;
+        border-bottom: 2px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        overflow-x: auto;
+      }
+      .tab {
+        padding: 0.75rem 1.2rem;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+        white-space: nowrap;
+        border-bottom: 3px solid transparent;
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+      .tab.active {
+        color: var(--c1);
+        border-bottom-color: var(--c1);
+      }
+      .tab:hover {
+        background: var(--bg);
+      }
+
+      /* MAIN */
+      .main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1.5rem 1rem 3rem;
+      }
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+      }
+
+      /* KNOWLEDGE MAP */
+      .kmap {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin: 1.2rem 0;
+      }
+      .knode {
+        background: var(--card);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
+      .knode:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .knode .kn-badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+      }
+      .knode h3 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+      .knode p {
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+      .knode .kn-link {
+        font-size: 0.72rem;
+        margin-top: 0.6rem;
+        opacity: 0.7;
+      }
+      .ch1 {
+        border-color: var(--c1m);
+      }
+      .ch1 .kn-badge {
+        background: var(--c1l);
+        color: var(--c1);
+      }
+      .ch2 {
+        border-color: var(--c2m);
+      }
+      .ch2 .kn-badge {
+        background: var(--c2l);
+        color: var(--c2);
+      }
+      .ch3 {
+        border-color: var(--c3m);
+      }
+      .ch3 .kn-badge {
+        background: var(--c3l);
+        color: var(--c3);
+      }
+
+      /* CARDS */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+      .card-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+      .card-title {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      .card-sub {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      /* CHAPTER SECTIONS */
+      .ch-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin: 1.5rem 0 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .ch-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* KEY POINTS */
+      .kp-list {
+        list-style: none;
+      }
+      .kp-list li {
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        margin-bottom: 0.4rem;
+        background: var(--bg);
+      }
+      .kp-list li::before {
+        content: "▸";
+        color: var(--c1m);
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      /* COMPARE TABLE */
+      .ctable {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.84rem;
+        margin-top: 0.8rem;
+      }
+      .ctable th {
+        background: var(--c1l);
+        color: var(--c1);
+        padding: 0.6rem 0.8rem;
+        text-align: left;
+        font-weight: 600;
+      }
+      .ctable td {
+        padding: 0.55rem 0.8rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      .ctable tr:last-child td {
+        border-bottom: none;
+      }
+      .ctable tr:hover td {
+        background: var(--bg);
+      }
+
+      /* CHECKBOX ITEMS */
+      .cb-group {
+        margin-bottom: 1.2rem;
+      }
+      .cb-group-title {
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .cb-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+        padding: 0.55rem 0.7rem;
+        border-radius: 7px;
+        margin-bottom: 0.35rem;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .cb-item:hover {
+        background: var(--bg);
+      }
+      .cb-item input[type="checkbox"] {
+        width: 17px;
+        height: 17px;
+        flex-shrink: 0;
+        margin-top: 2px;
+        cursor: pointer;
+        accent-color: var(--c1);
+      }
+      .cb-item label {
+        font-size: 0.88rem;
+        cursor: pointer;
+      }
+      .cb-item.done label {
+        text-decoration: line-through;
+        color: var(--muted);
+      }
+      .progress-bar-wrap {
+        background: var(--border);
+        border-radius: 10px;
+        height: 8px;
+        margin: 0.5rem 0 1rem;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 8px;
+        border-radius: 10px;
+        background: var(--c2m);
+        transition: width 0.4s;
+      }
+      .prog-label {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-bottom: 0.3rem;
+      }
+
+      /* RELATION BADGE */
+      .rel-badge {
+        display: inline-block;
+        font-size: 0.72rem;
+        background: #eee;
+        border-radius: 20px;
+        padding: 2px 8px;
+        margin: 2px;
+        color: var(--muted);
+      }
+
+      /* QUIZ */
+      .quiz-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        margin-bottom: 1.2rem;
+      }
+      .quiz-q {
+        font-size: 0.92rem;
+        font-weight: 600;
+        margin-bottom: 0.9rem;
+        line-height: 1.5;
+      }
+      .quiz-q .qnum {
+        display: inline-block;
+        background: var(--c1);
+        color: #fff;
+        border-radius: 5px;
+        padding: 1px 8px;
+        font-size: 0.78rem;
+        margin-right: 0.5rem;
+        font-weight: 700;
+      }
+      .quiz-opts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+      .quiz-opt {
+        background: var(--quiz-neutral);
+        border: 1.5px solid transparent;
+        border-radius: 7px;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.86rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+      }
+      .quiz-opt:hover {
+        border-color: var(--c1m);
+        background: var(--c1l);
+      }
+      .quiz-opt.correct {
+        background: var(--quiz-correct);
+        border-color: #4caf50;
+      }
+      .quiz-opt.wrong {
+        background: var(--quiz-wrong);
+        border-color: #e53935;
+      }
+      .quiz-opt .okey {
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .quiz-explain {
+        margin-top: 0.8rem;
+        font-size: 0.83rem;
+        background: #fffde7;
+        border-left: 3px solid #f9a825;
+        padding: 0.6rem 0.9rem;
+        border-radius: 0 6px 6px 0;
+        display: none;
+      }
+      .quiz-explain.show {
+        display: block;
+      }
+      .quiz-score {
+        text-align: center;
+        padding: 1.5rem;
+        background: var(--card);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+      }
+      .quiz-score .big {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--c1);
+      }
+      .quiz-filter {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+      .qfbtn {
+        padding: 5px 14px;
+        border-radius: 20px;
+        border: 1.5px solid var(--border);
+        background: #fff;
+        font-size: 0.82rem;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .qfbtn.active {
+        background: var(--c1);
+        color: #fff;
+        border-color: var(--c1);
+      }
+      .btn-primary {
+        background: var(--c1);
+        color: #fff;
+        border: none;
+        border-radius: 7px;
+        padding: 0.6rem 1.4rem;
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .btn-primary:hover {
+        background: #245a8a;
+      }
+      .btn-sec {
+        background: #fff;
+        color: var(--c1);
+        border: 1.5px solid var(--c1);
+        border-radius: 7px;
+        padding: 0.6rem 1.4rem;
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      /* DETAIL BOXES */
+      .detail-box {
+        border-left: 4px solid var(--c1m);
+        padding: 0.6rem 1rem;
+        background: var(--c1l);
+        border-radius: 0 8px 8px 0;
+        margin: 0.7rem 0;
+        font-size: 0.86rem;
+      }
+      .detail-box.green {
+        border-color: var(--c2m);
+        background: var(--c2l);
+      }
+      .detail-box.orange {
+        border-color: var(--c3m);
+        background: var(--c3l);
+      }
+
+      /* SUMMARY STATS */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+        margin: 1rem 0;
+      }
+      .stat-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.9rem;
+        text-align: center;
+      }
+      .stat-card .sn {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--c1);
+      }
+      .stat-card .sl {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      @media (max-width: 600px) {
+        .hero h1 {
+          font-size: 1.4rem;
+        }
+        .kmap {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <h1>Kỹ Năng Tạo Lập Văn Bản Tiếng Việt</h1>
+      <p>Trần Hương Giang · Học viện Công nghệ Bưu chính Viễn thông · 2024</p>
+      <div class="pill-row">
+        <span class="pill" onclick="goSection('map')">🗺️ Sơ đồ kiến thức</span>
+        <span class="pill" onclick="goSection('s1')">Chương 1: VBHC</span>
+        <span class="pill" onclick="goSection('s2')">Chương 2: CV</span>
+        <span class="pill" onclick="goSection('s3')">Chương 3: Email</span>
+        <span class="pill" onclick="goSection('checklist')">✅ Ôn tập</span>
+        <span class="pill" onclick="goSection('quiz')">🎯 Trắc nghiệm</span>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" onclick="goTab(this, 'map')">Sơ đồ kiến thức</div>
+      <div class="tab" onclick="goTab(this, 's1')">Ch.1 VBHC</div>
+      <div class="tab" onclick="goTab(this, 's2')">Ch.2 CV</div>
+      <div class="tab" onclick="goTab(this, 's3')">Ch.3 Email</div>
+      <div class="tab" onclick="goTab(this, 'checklist')">Checklist ôn tập</div>
+      <div class="tab" onclick="goTab(this, 'quiz')">Trắc nghiệm</div>
+    </div>
+
+    <div class="main">
+      <!-- ===== SƠ ĐỒ KIẾN THỨC ===== -->
+      <div class="section active" id="sec-map">
+        <div class="ch-label">
+          Sơ đồ tổng quan – Mối liên hệ giữa các khối kiến thức
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="sn">3</div>
+            <div class="sl">Chương học</div>
+          </div>
+          <div class="stat-card">
+            <div class="sn">7</div>
+            <div class="sl">Khối kiến thức</div>
+          </div>
+          <div class="stat-card">
+            <div class="sn">3</div>
+            <div class="sl">Loại văn bản HCTT</div>
+          </div>
+          <div class="stat-card">
+            <div class="sn">9</div>
+            <div class="sl">Phần cấu trúc CV</div>
+          </div>
+          <div class="stat-card">
+            <div class="sn">45</div>
+            <div class="sl">Câu trắc nghiệm</div>
+          </div>
+        </div>
+
+        <div class="kmap">
+          <div class="knode ch1" onclick="goSection('s1')">
+            <div class="kn-badge">Chương 1 · Khối A</div>
+            <h3>Tổng quan VBHC</h3>
+            <p>Khái niệm, phân loại, đặc trưng, thể thức văn bản hành chính</p>
+            <div class="kn-link">
+              → Liên quan: Khối B, C, D (nền tảng chung)
+            </div>
+          </div>
+          <div class="knode ch1" onclick="goSection('s1')">
+            <div class="kn-badge">Chương 1 · Khối B</div>
+            <h3>Thông báo</h3>
+            <p>5 loại thông báo, cấu trúc 3 phần, yêu cầu soạn thảo</p>
+            <div class="kn-link">
+              → Liên quan: A (thể thức), C & D (so sánh loại VB)
+            </div>
+          </div>
+          <div class="knode ch1" onclick="goSection('s1')">
+            <div class="kn-badge">Chương 1 · Khối C</div>
+            <h3>Tờ trình</h3>
+            <p>Đề xuất xin phê duyệt, cấu trúc 3 phần, lập luận thuyết phục</p>
+            <div class="kn-link">
+              → Liên quan: A (thể thức), D (so sánh công văn)
+            </div>
+          </div>
+          <div class="knode ch1" onclick="goSection('s1')">
+            <div class="kn-badge">Chương 1 · Khối D</div>
+            <h3>Công văn</h3>
+            <p>5 loại công văn, phương tiện giao tiếp chính thức</p>
+            <div class="kn-link">
+              → Liên quan: A (thể thức), C (so sánh tờ trình)
+            </div>
+          </div>
+          <div class="knode ch2" onclick="goSection('s2')">
+            <div class="kn-badge">Chương 2 · Khối E</div>
+            <h3>CV / Sơ yếu lý lịch</h3>
+            <p>9 phần cấu trúc, kỹ năng viết từng mục, 9 lỗi thường gặp</p>
+            <div class="kn-link">
+              → Liên quan: F (thư ứng tuyển), G (email xin việc)
+            </div>
+          </div>
+          <div class="knode ch3" onclick="goSection('s3')">
+            <div class="kn-badge">Chương 3 · Khối F</div>
+            <h3>Thư ứng tuyển</h3>
+            <p>Cover letter, 4 phần cấu trúc, phân biệt với CV & email</p>
+            <div class="kn-link">
+              → Liên quan: E (CV đính kèm), G (email gửi kèm)
+            </div>
+          </div>
+          <div class="knode ch3" onclick="goSection('s3')">
+            <div class="kn-badge">Chương 3 · Khối G</div>
+            <h3>Email chuyên nghiệp</h3>
+            <p>
+              Cấu trúc email, email xin việc, email phản hồi, 7 lỗi thường gặp
+            </p>
+            <div class="kn-link">
+              → Liên quan: E (CV đính kèm), F (cover letter)
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 1.2rem">
+          <div class="card-header">
+            <div
+              class="card-icon"
+              style="background: #e8f0f8; font-size: 1.3rem"
+            >
+              🔗
+            </div>
+            <div>
+              <div class="card-title">
+                Mối liên hệ quan trọng giữa các khối kiến thức
+              </div>
+            </div>
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Khối gốc</th>
+              <th>Khối liên quan</th>
+              <th>Nội dung liên hệ</th>
+            </tr>
+            <tr>
+              <td><b>A – Tổng quan VBHC</b></td>
+              <td>B, C, D</td>
+              <td>
+                Thể thức (khổ giấy, lề, phông chữ, bố cục) áp dụng chung cho
+                Thông báo, Tờ trình, Công văn
+              </td>
+            </tr>
+            <tr>
+              <td><b>B – Thông báo</b></td>
+              <td>C, D</td>
+              <td>
+                Phân biệt mục đích: TB truyền đạt thông tin → Tờ trình xin phê
+                duyệt → Công văn giao tiếp song phương
+              </td>
+            </tr>
+            <tr>
+              <td><b>C – Tờ trình</b></td>
+              <td>D</td>
+              <td>
+                Cả hai đều cần lập luận nhưng Tờ trình đề xuất lên cấp trên;
+                Công văn giao tiếp ngang hàng/hai chiều
+              </td>
+            </tr>
+            <tr>
+              <td><b>E – CV</b></td>
+              <td>F, G</td>
+              <td>
+                CV là tài liệu chính → Thư ứng tuyển (F) giới thiệu CV → Email
+                (G) là phương tiện gửi cả hai
+              </td>
+            </tr>
+            <tr>
+              <td><b>F – Thư ứng tuyển</b></td>
+              <td>G</td>
+              <td>
+                Thư ứng tuyển (file đính kèm) khác với nội dung email xin việc
+                (viết trực tiếp trong email)
+              </td>
+            </tr>
+            <tr>
+              <td><b>A → E,F,G</b></td>
+              <td>Liên chương</td>
+              <td>
+                Nguyên tắc soạn thảo: chính xác, rõ ràng, phù hợp đối tượng áp
+                dụng cho cả VBHC lẫn CV/Email
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== CHƯƠNG 1 ===== -->
+      <div class="section" id="sec-s1">
+        <!-- KHỐI A -->
+        <div class="ch-label" style="color: var(--c1)">
+          Khối A – Tổng quan Văn bản Hành chính
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c1l)">📋</div>
+            <div>
+              <div class="card-title">Khái niệm & Phân loại</div>
+              <div class="card-sub">
+                Liên quan: Khối B, C, D (áp dụng thể thức chung)
+              </div>
+            </div>
+          </div>
+          <ul class="kp-list">
+            <li>
+              <b>Văn bản hành chính</b> (theo NĐ 30/2020/NĐ-CP): "Văn bản hình
+              thành trong quá trình chỉ đạo, điều hành, giải quyết công việc của
+              các cơ quan, tổ chức."
+            </li>
+            <li>
+              <b>2 loại chính:</b> (1) <b>Cá biệt</b> – thể hiện quyết định/chỉ
+              thị (VD: QĐ nâng lương). (2) <b>Thông thường</b> – điều hành, trao
+              đổi (VD: Thông báo, Biên bản).
+            </li>
+            <li>
+              NĐ 30/2020 liệt kê 29 hình thức văn bản hành chính (Nghị quyết,
+              Quyết định, Thông báo, Tờ trình, Công văn, Giấy mời…)
+            </li>
+          </ul>
+          <div class="ch-label" style="font-size: 0.8rem; margin-top: 1rem">
+            6 Đặc trưng cơ bản
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Đặc trưng</th>
+              <th>Nội dung cốt lõi</th>
+            </tr>
+            <tr>
+              <td>🔲 Tính khuôn mẫu</td>
+              <td>
+                Mẫu chuẩn, cấu trúc thống nhất → dễ đọc, tự động xử lý, pháp lý
+                rõ ràng
+              </td>
+            </tr>
+            <tr>
+              <td>✅ Tính chính xác</td>
+              <td>
+                Ngôn ngữ rõ ràng, không mơ hồ → người nhận hiểu đúng, thực hiện
+                đúng
+              </td>
+            </tr>
+            <tr>
+              <td>⚖️ Tính khách quan</td>
+              <td>
+                Không mang dấu ấn cá nhân, dùng chức vụ/thuật ngữ chuyên ngành
+              </td>
+            </tr>
+            <tr>
+              <td>🎩 Tính trang trọng</td>
+              <td>Ngôn ngữ lịch sự, tôn trọng, tuân thủ quy tắc xưng hô</td>
+            </tr>
+            <tr>
+              <td>⚡ Tính hiệu lực</td>
+              <td>Phù hợp pháp luật, đúng thẩm quyền, nội dung khả thi</td>
+            </tr>
+            <tr>
+              <td>🌐 Tính phổ thông</td>
+              <td>Ngôn ngữ dễ hiểu, tiếp cận mọi trình độ</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c1l)">📐</div>
+            <div>
+              <div class="card-title">Thể thức & Quy định trình bày</div>
+              <div class="card-sub">
+                Áp dụng cho Thông báo, Tờ trình, Công văn (Khối B,C,D)
+              </div>
+            </div>
+          </div>
+          <div class="detail-box">
+            <b>Quy định kỹ thuật bắt buộc:</b> Khổ A4 (210×297mm) · Phông Times
+            New Roman · Unicode TCVN 6909:2001 · Màu đen · Số trang dùng chữ số
+            Ả Rập cỡ 13–14
+          </div>
+          <table class="ctable" style="margin-top: 0.8rem">
+            <tr>
+              <th>Thành phần</th>
+              <th>Quy định cụ thể</th>
+            </tr>
+            <tr>
+              <td>Lề trái</td>
+              <td>30–35 mm</td>
+            </tr>
+            <tr>
+              <td>Lề phải</td>
+              <td>15–20 mm</td>
+            </tr>
+            <tr>
+              <td>Lề trên/dưới</td>
+              <td>20–25 mm</td>
+            </tr>
+            <tr>
+              <td>Quốc hiệu</td>
+              <td>In hoa, cỡ 12–13, đứng đậm, góc trên phải</td>
+            </tr>
+            <tr>
+              <td>Tiêu ngữ</td>
+              <td>In thường, cỡ 13–14, đứng đậm, có gạch chân</td>
+            </tr>
+            <tr>
+              <td>Tên cơ quan ban hành</td>
+              <td>In hoa, cỡ 12–13, đứng đậm, có gạch chân bên dưới</td>
+            </tr>
+            <tr>
+              <td>Địa danh & ngày tháng</td>
+              <td>In thường, cỡ 13–14, kiểu <i>nghiêng</i></td>
+            </tr>
+            <tr>
+              <td>Tên loại văn bản</td>
+              <td>In hoa, cỡ 13–14, đứng đậm, canh giữa</td>
+            </tr>
+            <tr>
+              <td>Nội dung</td>
+              <td>In thường, cỡ 13–14, đứng, lùi đầu dòng 1cm</td>
+            </tr>
+          </table>
+          <div class="detail-box" style="margin-top: 0.8rem">
+            <b>Quyền hạn ký:</b> TM. (thay mặt tập thể) · KT. (ký thay) · TL.
+            (thừa lệnh) · TUQ. (thừa uỷ quyền) · Q. (được giao quyền cấp trưởng)
+          </div>
+        </div>
+
+        <!-- KHỐI B -->
+        <div class="ch-label" style="color: var(--c1)">
+          Khối B – Thông Báo ·
+          <span style="font-weight: 400; font-size: 0.8rem"
+            >Liên quan: Khối A (thể thức), C & D (so sánh)</span
+          >
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c1l)">📢</div>
+            <div>
+              <div class="card-title">Thông Báo – Khái niệm & Phân loại</div>
+            </div>
+          </div>
+          <div class="detail-box">
+            <b>Khái niệm:</b> Văn bản hành chính thông thường dùng truyền đạt
+            nội dung quyết định, tin tức, sự việc tới đối tượng liên quan để
+            biết & thực hiện. <b>Không bắt buộc trình bày lý do.</b>
+          </div>
+          <div class="ch-label" style="font-size: 0.8rem; margin-top: 1rem">
+            5 loại Thông báo
+          </div>
+          <ul class="kp-list">
+            <li>
+              <b>TB truyền đạt văn bản/chính sách mới:</b> Nêu tên VB, tóm tắt
+              nội dung, yêu cầu triển khai
+            </li>
+            <li>
+              <b>TB sự việc/tin tức:</b> Đưa thông tin nhanh khi sự kiện xảy ra
+            </li>
+            <li>
+              <b>TB nhiệm vụ được giao:</b> Ghi ngắn gọn nhiệm vụ, yêu cầu, biện
+              pháp thực hiện
+            </li>
+            <li>
+              <b>TB quan hệ mới (thay đổi nhân sự/cơ quan):</b> Bổ nhiệm, thay
+              đổi cơ quan chủ quản
+            </li>
+            <li>
+              <b>TB thông tin quản lý:</b> Các thay đổi trong hoạt động quản lý
+            </li>
+          </ul>
+          <div class="ch-label" style="font-size: 0.8rem; margin-top: 1rem">
+            Cấu trúc Thông báo
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Phần</th>
+              <th>Nội dung</th>
+              <th>Lưu ý</th>
+            </tr>
+            <tr>
+              <td><b>Mở đầu</b></td>
+              <td>Mục đích, chủ thể, thẩm quyền TB; đối tượng tiếp nhận</td>
+              <td>Có thể giới thiệu trực tiếp, không cần viện dẫn lý do</td>
+            </tr>
+            <tr>
+              <td><b>Nội dung</b></td>
+              <td>
+                Thông tin cụ thể cần truyền đạt (1 đoạn hoặc hệ thống đề mục)
+              </td>
+              <td>Ngắn gọn, dễ hiểu, tường thuật</td>
+            </tr>
+            <tr>
+              <td><b>Kết thúc</b></td>
+              <td>Yêu cầu thực hiện, thời gian, hiệu lực</td>
+              <td>Không cần lời lẽ xã giao như Công văn</td>
+            </tr>
+          </table>
+          <div class="detail-box" style="margin-top: 0.8rem">
+            <b>⚠️ Lưu ý đặc biệt:</b> Người ký TB không bắt buộc là thủ trưởng –
+            có thể ký "thừa lệnh". VD: Trưởng phòng Kinh tế-Tài chính ký TB lịch
+            thu học phí thay Hiệu trưởng.
+          </div>
+        </div>
+
+        <!-- KHỐI C -->
+        <div class="ch-label" style="color: var(--c1)">
+          Khối C – Tờ Trình ·
+          <span style="font-weight: 400; font-size: 0.8rem"
+            >Liên quan: Khối A (thể thức), D (so sánh công văn)</span
+          >
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c1l)">📝</div>
+            <div>
+              <div class="card-title">Tờ Trình – Đề xuất xin phê duyệt</div>
+            </div>
+          </div>
+          <div class="detail-box">
+            <b>Khái niệm:</b> Văn bản đề xuất với cấp trên một vấn đề mới hoặc
+            đã có kế hoạch để xin phê duyệt mà cơ quan không tự quyết được. Có
+            thể đề xuất huỷ bỏ/sửa đổi điều khoản.
+          </div>
+          <div class="ch-label" style="font-size: 0.8rem; margin-top: 1rem">
+            5 Yêu cầu của Tờ trình
+          </div>
+          <ul class="kp-list">
+            <li>Cung cấp thông tin + lập luận + đề xuất giải pháp khả thi</li>
+            <li>Kiến nghị rõ ràng, cụ thể, hợp lý</li>
+            <li>Phân tích thực tế → làm nổi bật tính cấp thiết</li>
+            <li>Nội dung xin phê chuẩn phải dự đoán được phản ứng</li>
+            <li>Phân tích khả năng, trình bày phương án phát triển thế mạnh</li>
+          </ul>
+          <div class="ch-label" style="font-size: 0.8rem; margin-top: 1rem">
+            Cấu trúc Tờ trình
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Phần</th>
+              <th>Nội dung</th>
+            </tr>
+            <tr>
+              <td><b>Mở đầu</b></td>
+              <td>
+                Phân tích tình hình thực tế → sự cần thiết → dùng ngôn ngữ khách
+                quan, chuyên nghiệp
+              </td>
+            </tr>
+            <tr>
+              <td><b>Nội dung chính</b></td>
+              <td>
+                Tóm tắt đề nghị + phương án; nêu vấn đề có thể phát sinh; ý
+                nghĩa tác động; số liệu minh họa cụ thể
+              </td>
+            </tr>
+            <tr>
+              <td><b>Kết luận</b></td>
+              <td>
+                Yêu cầu phê chuẩn → xếp thứ tự ưu tiên phương án → lý do thuyết
+                phục → "Trân trọng kính trình!"
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- KHỐI D -->
+        <div class="ch-label" style="color: var(--c1)">
+          Khối D – Công Văn ·
+          <span style="font-weight: 400; font-size: 0.8rem"
+            >Liên quan: Khối A (thể thức), C (so sánh tờ trình)</span
+          >
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c1l)">✉️</div>
+            <div>
+              <div class="card-title">
+                Công Văn – Phương tiện giao tiếp chính thức
+              </div>
+            </div>
+          </div>
+          <div class="detail-box">
+            <b>Khái niệm:</b> Hình thức văn bản <b>không có tên loại cụ thể</b>,
+            dùng phổ biến nhất, là phương tiện giao tiếp chính thức giữa các cơ
+            quan và giữa cơ quan với công dân.
+          </div>
+          <div class="ch-label" style="font-size: 0.8rem; margin-top: 1rem">
+            5 loại Công văn
+          </div>
+          <ul class="kp-list">
+            <li>
+              <b>Phúc đáp:</b> Trả lời yêu cầu của cơ quan khác hoặc đơn khiếu
+              nại cá nhân
+            </li>
+            <li>
+              <b>Đề nghị:</b> Kiến nghị cơ quan cấp trên/đơn vị/tổ chức giải
+              quyết vấn đề cụ thể
+            </li>
+            <li>
+              <b>Đôn đốc/chấn chỉnh:</b> Thông báo tình hình + đề ra biện pháp
+              mới
+            </li>
+            <li>
+              <b>Mời họp/đại hội:</b> Thông báo mục đích, nội dung, thời gian,
+              địa điểm
+            </li>
+            <li>
+              <b>Giải thích:</b> Giải thích vấn đề, chủ trương, biện pháp thực
+              hiện
+            </li>
+          </ul>
+          <div class="ch-label" style="font-size: 0.8rem; margin-top: 1rem">
+            Nguyên tắc hành văn theo từng loại
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Loại công văn</th>
+              <th>Văn phong yêu cầu</th>
+            </tr>
+            <tr>
+              <td>Đề nghị</td>
+              <td>
+                Lý do xác đáng, lời văn chặt chẽ, cầu thị → kết bằng lời cảm ơn
+              </td>
+            </tr>
+            <tr>
+              <td>Đôn đốc</td>
+              <td>Nghiêm khắc, nêu hậu quả nếu không hoàn thành kịp thời</td>
+            </tr>
+            <tr>
+              <td>Từ chối</td>
+              <td>Từ ngữ lịch sự, có sự động viên an ủi</td>
+            </tr>
+            <tr>
+              <td>Tiếp thu phê bình</td>
+              <td>Mềm dẻo, khiêm tốn, có dẫn chứng nếu cần thanh minh</td>
+            </tr>
+            <tr>
+              <td>Mời họp</td>
+              <td>Kết: "Đề nghị... đến dự đầy đủ và đúng giờ"</td>
+            </tr>
+          </table>
+          <div class="detail-box" style="margin-top: 0.8rem">
+            <b>⚠️ Lưu ý quan trọng:</b> Phải chú ý <b>quan hệ vai</b> (gửi cấp
+            trên / ngang hàng / cấp dưới) để chọn văn phong phù hợp.
+          </div>
+        </div>
+
+        <!-- SO SÁNH B, C, D -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c1l)">⚖️</div>
+            <div>
+              <div class="card-title">
+                So sánh Thông báo – Tờ trình – Công văn
+              </div>
+              <div class="card-sub">Kiến thức hay ra thi</div>
+            </div>
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Tiêu chí</th>
+              <th>Thông báo (B)</th>
+              <th>Tờ trình (C)</th>
+              <th>Công văn (D)</th>
+            </tr>
+            <tr>
+              <td>Mục đích</td>
+              <td>Truyền đạt thông tin, thông báo sự việc</td>
+              <td>Đề xuất xin phê duyệt</td>
+              <td>Giao tiếp, trao đổi công việc</td>
+            </tr>
+            <tr>
+              <td>Chiều giao tiếp</td>
+              <td>Một chiều (từ cơ quan → đối tượng)</td>
+              <td>Một chiều (lên cấp trên)</td>
+              <td>Hai chiều / đa chiều</td>
+            </tr>
+            <tr>
+              <td>Lý do</td>
+              <td>Không bắt buộc nêu lý do</td>
+              <td>Bắt buộc phân tích lý do, thực trạng</td>
+              <td>Nêu rõ cơ sở viết CV</td>
+            </tr>
+            <tr>
+              <td>Kết thúc</td>
+              <td>Không cần lời xã giao, nhắc lại yêu cầu</td>
+              <td>"Trân trọng kính trình!"</td>
+              <td>Lời cảm ơn / lời chào tùy loại</td>
+            </tr>
+            <tr>
+              <td>Người ký</td>
+              <td>Không bắt buộc thủ trưởng</td>
+              <td>Thường là thủ trưởng/đại diện</td>
+              <td>Theo thẩm quyền và quan hệ vai</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== CHƯƠNG 2 ===== -->
+      <div class="section" id="sec-s2">
+        <div class="ch-label" style="color: var(--c2)">
+          Khối E – CV (Curriculum Vitae) ·
+          <span style="font-weight: 400; font-size: 0.8rem"
+            >Liên quan: Khối F (thư ứng tuyển), G (email gửi kèm)</span
+          >
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c2l)">👤</div>
+            <div><div class="card-title">CV – Khái niệm & Vai trò</div></div>
+          </div>
+          <div class="detail-box green">
+            <b>Khái niệm:</b> Tài liệu tóm tắt chuyên nghiệp về trình độ học
+            vấn, kinh nghiệm, kỹ năng và thành tựu của cá nhân. CV là "chiếc vé
+            thông hành" mở ra cơ hội nghề nghiệp.
+          </div>
+          <table class="ctable" style="margin-top: 0.8rem">
+            <tr>
+              <th>Vai trò với ứng viên</th>
+              <th>Vai trò với nhà tuyển dụng</th>
+            </tr>
+            <tr>
+              <td>Cánh cửa mở cơ hội nghề nghiệp</td>
+              <td>Công cụ sàng lọc ứng viên hiệu quả</td>
+            </tr>
+            <tr>
+              <td>Tạo ấn tượng ban đầu chuyên nghiệp</td>
+              <td>Hiểu nhanh thông tin cơ bản ứng viên</td>
+            </tr>
+            <tr>
+              <td>Thể hiện sự phù hợp với công việc</td>
+              <td>Tiết kiệm thời gian và nguồn lực</td>
+            </tr>
+            <tr>
+              <td>Xây dựng thương hiệu cá nhân</td>
+              <td>Đánh giá sự phù hợp văn hóa công ty</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c2l)">🗂️</div>
+            <div>
+              <div class="card-title">9 Phần cấu trúc CV chuẩn</div>
+              <div class="card-sub">Và kỹ năng viết từng phần</div>
+            </div>
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>#</th>
+              <th>Phần</th>
+              <th>Kỹ năng cốt lõi</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td><b>Tiêu đề CV</b></td>
+              <td>
+                Ngắn gọn (Họ tên – Vị trí), kèm từ khóa, nhấn mạnh thành tích
+                nổi bật hoặc tính từ mạnh
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><b>Thông tin cá nhân</b></td>
+              <td>
+                Họ tên in hoa đậm; email chuyên nghiệp (chứa tên, không dùng
+                biệt danh); SĐT; ảnh chân dung chuyên nghiệp; LinkedIn; địa chỉ
+                chỉ cần tên tỉnh/thành
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><b>Mục tiêu nghề nghiệp</b></td>
+              <td>
+                Tìm hiểu mô tả công việc → nêu điểm mạnh → viết ngắn gọn → dùng
+                từ khóa → thực tế với năng lực. Dùng động từ mạnh: "đạt được",
+                "phát triển", "tăng cường"
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><b>Kinh nghiệm làm việc</b></td>
+              <td>
+                Liệt kê từ gần đến xa; ghi tên công ty, vị trí, thời gian; dùng
+                số liệu cụ thể ("tăng 20%"); tập trung vào kết quả, không chỉ
+                liệt kê nhiệm vụ
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><b>Trình độ & bằng cấp</b></td>
+              <td>
+                Sắp xếp từ bằng cấp cao nhất; cung cấp GPA nếu cao; ghi thành
+                tích nổi bật, học bổng; tùy chỉnh theo ngành nghề
+              </td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><b>Kỹ năng</b></td>
+              <td>
+                Phân loại kỹ năng cứng (hard) và mềm (soft); trình bày dạng liệt
+                kê hoặc đánh giá thang điểm; ưu tiên kỹ năng liên quan vị trí
+              </td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><b>Dự án</b></td>
+              <td>
+                Nêu tên dự án, thời gian, vai trò, kết quả cụ thể; chọn dự án
+                liên quan vị trí ứng tuyển
+              </td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td><b>Hoạt động ngoại khóa</b></td>
+              <td>
+                Chọn 3–5 hoạt động nổi bật liên quan; ghi vai trò + thành tích;
+                dùng số liệu
+              </td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td><b>Sở thích / Người tham chiếu</b></td>
+              <td>
+                Sở thích: chỉ ghi nếu đặc trưng, liên quan; Người tham chiếu:
+                1–2 người, ghi đủ thông tin, xin phép trước
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c2l)">⚠️</div>
+            <div>
+              <div class="card-title">9 Lỗi thường gặp khi viết CV</div>
+            </div>
+          </div>
+          <ul class="kp-list">
+            <li>
+              <b>Lỗi 1 – Ảnh không nghiêm túc:</b> Không dùng ảnh selfie, ảnh
+              chụp chung, ảnh mờ, trang phục hở hang
+            </li>
+            <li>
+              <b>Lỗi 2 – Email thiếu chuyên nghiệp:</b> Không dùng biệt danh, ký
+              tự đặc biệt nhiều, email trường/công ty cũ không dùng nữa
+            </li>
+            <li>
+              <b>Lỗi 3 – Mục tiêu chung chung:</b> Không nêu rõ vị trí mong
+              muốn; mục tiêu quá dài (>3 dòng); thiếu tính cá nhân hóa; có lỗi
+              chính tả; không phân chia ngắn hạn/dài hạn
+            </li>
+            <li>
+              <b>Lỗi 4 – Thời gian không theo trình tự:</b> Không liệt kê từ gần
+              đến xa; có khoảng trống không giải thích; trộn lẫn học tập & làm
+              việc
+            </li>
+            <li>
+              <b>Lỗi 5 – CV không tùy chỉnh theo vị trí:</b> Dùng một CV chung
+              cho nhiều vị trí khác nhau
+            </li>
+            <li>
+              <b>Lỗi 6 – Kinh nghiệm không liên quan:</b> Ghi công việc thời
+              gian làm rất ngắn (1–2 tháng) hoặc hoàn toàn khác ngành
+            </li>
+            <li>
+              <b>Lỗi 7 – Đề cập thu nhập trong CV:</b> Không ghi mức lương mong
+              muốn hoặc yêu cầu phúc lợi trong CV
+            </li>
+            <li>
+              <b>Lỗi 8 – Trình bày lộn xộn:</b> CV dài hơn 2 trang A4; nhiều
+              kiểu chữ; nhiều màu sắc; sai chính tả, ngữ pháp
+            </li>
+            <li>
+              <b>Lỗi 9 – Đặt tên file không chuẩn:</b> Không đặt tên chung chung
+              ("CV ứng tuyển.pdf"), không chỉ ghi tên, không kèm tên người nhận
+            </li>
+          </ul>
+          <div class="detail-box green" style="margin-top: 0.8rem">
+            <b>Cấu trúc tên file chuẩn:</b> "CV - Họ tên - Vị trí ứng tuyển.pdf"
+            hoặc "CV - Vị trí - Họ tên.pdf" · Không dùng tiếng Việt có dấu trong
+            tên file
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c2l)">🤖</div>
+            <div><div class="card-title">ATS & Định dạng file CV</div></div>
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Tiêu chí</th>
+              <th>File Word (.doc/.docx)</th>
+              <th>File PDF</th>
+            </tr>
+            <tr>
+              <td>Ưu điểm</td>
+              <td>Dễ chỉnh sửa, sao chép linh hoạt</td>
+              <td>Bảo toàn bố cục, chuyên nghiệp</td>
+            </tr>
+            <tr>
+              <td>Nhược điểm</td>
+              <td>Có thể lỗi khi mở trên thiết bị khác</td>
+              <td>Khó chỉnh sửa</td>
+            </tr>
+            <tr>
+              <td>Khi dùng</td>
+              <td>NTD yêu cầu CV đơn giản, dạng văn bản</td>
+              <td>Mặc định khi không có yêu cầu cụ thể</td>
+            </tr>
+          </table>
+          <div class="detail-box green" style="margin-top: 0.8rem">
+            <b>ATS (Applicant Tracking System):</b> Hệ thống tự động sàng lọc CV
+            → Cần nhúng từ khóa liên quan đến vị trí; tránh hình ảnh/biểu tượng
+            phức tạp; cấu trúc rõ ràng
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CHƯƠNG 3 ===== -->
+      <div class="section" id="sec-s3">
+        <div class="ch-label" style="color: var(--c3)">
+          Khối F – Thư Ứng Tuyển ·
+          <span style="font-weight: 400; font-size: 0.8rem"
+            >Liên quan: E (CV đính kèm), G (email là phương tiện gửi)</span
+          >
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c3l)">📨</div>
+            <div>
+              <div class="card-title">Thư ứng tuyển (Cover Letter)</div>
+            </div>
+          </div>
+          <div class="detail-box orange">
+            <b>Khái niệm:</b> Văn bản ngắn gọn (~1 trang A4) giới thiệu kỹ năng,
+            kinh nghiệm, mong muốn của ứng viên. Gửi <b>kèm với CV</b>, là "linh
+            hồn" của hồ sơ. Trả lời:
+            <i>Tại sao tôi phù hợp? Tôi mang lại giá trị gì?</i>
+          </div>
+          <div class="ch-label" style="font-size: 0.8rem; margin-top: 1rem">
+            4 phần cấu trúc
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Phần</th>
+              <th>Nội dung</th>
+            </tr>
+            <tr>
+              <td><b>1. Tiêu đề</b></td>
+              <td>Họ tên – vị trí ứng tuyển; SĐT, email, địa chỉ</td>
+            </tr>
+            <tr>
+              <td><b>2. Mở đầu</b></td>
+              <td>
+                "Kính gửi Ông/Bà [tên]..." hoặc "Kính gửi Phòng Tuyển dụng...";
+                nêu vị trí ứng tuyển và nguồn biết tin tuyển dụng (1–2 câu)
+              </td>
+            </tr>
+            <tr>
+              <td><b>3. Nội dung chính</b></td>
+              <td>
+                1–2 đoạn: trình độ học vấn + kinh nghiệm + kỹ năng phù hợp; số
+                liệu/thành tích cụ thể; lý do quan tâm công việc này
+              </td>
+            </tr>
+            <tr>
+              <td><b>4. Kết thúc</b></td>
+              <td>
+                Khẳng định đủ năng lực; thông tin liên hệ; bày tỏ mong muốn
+                phỏng vấn; cảm ơn; ký tên "Trân trọng"
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="ch-label" style="color: var(--c3)">
+          Khối G – Email Chuyên Nghiệp ·
+          <span style="font-weight: 400; font-size: 0.8rem"
+            >Liên quan: E (CV đính kèm), F (thư ứng tuyển đính kèm)</span
+          >
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c3l)">📧</div>
+            <div>
+              <div class="card-title">Email – Tổng quan & Cấu trúc</div>
+            </div>
+          </div>
+          <div class="ch-label" style="font-size: 0.8rem">
+            6 thành phần cấu trúc email chuẩn
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Thành phần</th>
+              <th>Yêu cầu</th>
+            </tr>
+            <tr>
+              <td><b>Tiêu đề (Subject)</b></td>
+              <td>
+                Ngắn gọn, rõ ràng, phản ánh nội dung chính; Không bao giờ bỏ
+                trống; Nếu tuyển dụng: theo định dạng NTD yêu cầu
+              </td>
+            </tr>
+            <tr>
+              <td><b>Địa chỉ người nhận</b></td>
+              <td>Kiểm tra kỹ; Dùng Cc/Bcc khi cần gửi nhiều người</td>
+            </tr>
+            <tr>
+              <td><b>Lời chào đầu</b></td>
+              <td>
+                "Kính gửi Thầy/Cô..." / "Kính gửi Anh/Chị..." – lịch sự, phù hợp
+                đối tượng
+              </td>
+            </tr>
+            <tr>
+              <td><b>Nội dung chính</b></td>
+              <td>
+                Mở đầu (mục đích) + Thân (chi tiết ngắn gọn) + Kết (tóm tắt +
+                mong phản hồi)
+              </td>
+            </tr>
+            <tr>
+              <td><b>File đính kèm</b></td>
+              <td>
+                Đặt tên rõ ràng, không dấu tiếng Việt; nhiều file → nén .zip;
+                dưới 1MB
+              </td>
+            </tr>
+            <tr>
+              <td><b>Chữ ký</b></td>
+              <td>
+                Họ tên + chức danh/lớp + SĐT + email; Font Arial/Times New Roman
+                cỡ 12; màu đen
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c3l)">🔍</div>
+            <div>
+              <div class="card-title">
+                So sánh Email xin việc vs Thư ứng tuyển
+              </div>
+              <div class="card-sub">Hay nhầm lẫn trong thi cử</div>
+            </div>
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>Yếu tố</th>
+              <th>Email xin việc (G)</th>
+              <th>Thư ứng tuyển – Cover Letter (F)</th>
+            </tr>
+            <tr>
+              <td>Hình thức</td>
+              <td>Viết trực tiếp trong nội dung email</td>
+              <td>File riêng (.docx/.pdf) đính kèm cùng CV</td>
+            </tr>
+            <tr>
+              <td>Độ dài</td>
+              <td>Ngắn gọn, súc tích</td>
+              <td>~1 trang A4 chi tiết hơn</td>
+            </tr>
+            <tr>
+              <td>Bắt buộc?</td>
+              <td>Thường bắt buộc (để NTD nhận diện)</td>
+              <td>Không bắt buộc, tùy yêu cầu NTD</td>
+            </tr>
+            <tr>
+              <td>Nội dung</td>
+              <td>Tóm tắt điểm nổi bật, mục đích gửi, file đính kèm</td>
+              <td>Chi tiết kinh nghiệm, kỹ năng, lý do phù hợp</td>
+            </tr>
+            <tr>
+              <td>Phản hồi</td>
+              <td>Nhanh hơn (trao đổi trực tiếp)</td>
+              <td>Chậm hơn (qua các bước xét duyệt)</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c3l)">✍️</div>
+            <div>
+              <div class="card-title">9 Kỹ năng viết email chuyên nghiệp</div>
+            </div>
+          </div>
+          <ul class="kp-list">
+            <li>
+              <b>1. Đặt tiêu đề rõ ràng:</b> Không gửi email thiếu tiêu đề; thêm
+              "[Khẩn cấp]" nếu cần
+            </li>
+            <li>
+              <b>2. Đính kèm file trước khi gửi:</b> Định dạng phổ biến
+              (PDF/DOC); đặt tên file rõ ràng, không dấu
+            </li>
+            <li>
+              <b>3. Viết nội dung ngắn gọn:</b> Chia 3 phần: lời chào → nội dung
+              chính → lời chúc/cảm ơn
+            </li>
+            <li>
+              <b>4. Kiểm tra trước khi gửi:</b> Chính tả, file đính kèm, địa chỉ
+              người nhận
+            </li>
+            <li>
+              <b>5. Nhập địa chỉ người nhận SAU CÙNG:</b> Tránh gửi nhầm khi
+              email chưa hoàn chỉnh
+            </li>
+            <li>
+              <b>6. Chữ ký cá nhân chuyên nghiệp:</b> Font dễ đọc, màu đen, đủ
+              thông tin liên hệ
+            </li>
+            <li>
+              <b>7. Địa chỉ email nghiêm túc:</b> Cấu trúc tên (nguyenvan.b@...)
+              không dùng biệt danh
+            </li>
+            <li>
+              <b>8. Trả lời tất cả email trong 48 giờ:</b> Kể cả email gửi nhầm
+              – xác nhận đã nhận
+            </li>
+            <li>
+              <b>9. Nghĩ trước khi viết:</b> Xác định mục đích, kỳ vọng, sự cần
+              thiết của email
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c3l)">❌</div>
+            <div>
+              <div class="card-title">
+                7 Lỗi thường gặp khi viết & phản hồi email
+              </div>
+            </div>
+          </div>
+          <table class="ctable">
+            <tr>
+              <th>#</th>
+              <th>Lỗi</th>
+              <th>Ví dụ sai → Đúng</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Coi email là kỹ năng đơn giản</td>
+              <td>Viết tùy tiện → Đầu tư kỹ, viết chuẩn mực</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Lạm dụng email mọi trường hợp</td>
+              <td>Email việc khẩn → Gọi điện / nhắn tin trước</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Thiếu kỹ năng trình bày</td>
+              <td>"xin Chao thay, E muon..." → "Kính gửi Thầy, Em..."</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Nội dung dài dòng, không rõ ràng</td>
+              <td>Lan man → Ngắn gọn, đi thẳng vào vấn đề</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Sai chính tả, không nhất quán dấu</td>
+              <td>"Cam on thay" → "Cảm ơn thầy"</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Không viết hoặc sai Subject</td>
+              <td>Subject "Xin chào" → "Xin phép gặp thầy về bài tập"</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Quên gửi / đặt tên file sai</td>
+              <td>"Document1.doc" → "Bai_tap_1_NguyenVanA.doc"</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== CHECKLIST ===== -->
+      <div class="section" id="sec-checklist">
+        <div class="ch-label">
+          Checklist Ôn Tập – Đánh dấu những kiến thức đã nắm vững
+        </div>
+        <div class="prog-label" id="prog-label">Tiến độ: 0 / 0 mục</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="prog-bar" style="width: 0%"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c1l)">📋</div>
+            <div>
+              <div class="card-title">Chương 1 – Văn bản Hành chính</div>
+            </div>
+          </div>
+
+          <div class="cb-group">
+            <div class="cb-group-title">Khối A – Tổng quan VBHC</div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nắm được định nghĩa VBHC theo NĐ 30/2020/NĐ-CP (ngày
+                05/03/2020)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Phân biệt được 2 loại: VBHC cá biệt vs VBHC thông thường (có ví
+                dụ)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Ghi nhớ 6 đặc trưng cơ bản (khuôn mẫu, chính xác, khách quan,
+                trang trọng, hiệu lực, phổ thông)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Thuộc quy định lề: trái 30–35mm, phải 15–20mm, trên/dưới
+                20–25mm</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết phông chữ: Times New Roman, Unicode TCVN 6909:2001</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nhớ 5 ký hiệu quyền hạn ký: TM. KT. TL. TUQ. Q.</label
+              >
+            </div>
+          </div>
+
+          <div class="cb-group">
+            <div class="cb-group-title">Khối B – Thông báo</div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nắm khái niệm Thông báo (không cần nêu lý do, truyền đạt thông
+                tin)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Liệt kê được 5 loại thông báo</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết cấu trúc 3 phần: mở đầu → nội dung → kết thúc</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nhớ: người ký TB không bắt buộc là thủ trưởng (có thể ký thừa
+                lệnh)</label
+              >
+            </div>
+          </div>
+
+          <div class="cb-group">
+            <div class="cb-group-title">Khối C – Tờ trình</div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nắm khái niệm Tờ trình (đề xuất xin phê duyệt lên cấp
+                trên)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Liệt kê được 5 yêu cầu của Tờ trình</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết phần kết luận phải kết bằng "Trân trọng kính
+                trình!"</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Hiểu phần mở đầu phải phân tích thực tế, dùng ngôn ngữ khách
+                quan</label
+              >
+            </div>
+          </div>
+
+          <div class="cb-group">
+            <div class="cb-group-title">Khối D – Công văn & So sánh</div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết Công văn là VB không có tên loại cụ thể</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Liệt kê được 5 loại công văn (phúc đáp, đề nghị, đôn đốc, mời
+                họp, giải thích)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết văn phong của từng loại công văn (đề nghị: cầu thị; đôn
+                đốc: nghiêm khắc)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Phân biệt được Thông báo – Tờ trình – Công văn (mục đích, chiều
+                giao tiếp, kết thúc)</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c2l)">👤</div>
+            <div><div class="card-title">Chương 2 – CV</div></div>
+          </div>
+
+          <div class="cb-group">
+            <div class="cb-group-title">Khối E – Kiến thức về CV</div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nắm khái niệm CV và vai trò với ứng viên lẫn nhà tuyển
+                dụng</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Liệt kê được 9 phần cấu trúc CV chuẩn theo thứ tự</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết cách viết mục tiêu nghề nghiệp (5 bước: tìm hiểu JD → điểm
+                mạnh → ngắn gọn → từ khóa → thực tế)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết kinh nghiệm phải liệt kê từ gần đến xa (thứ tự thời gian
+                ngược)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Phân biệt kỹ năng cứng (hard skills) và kỹ năng mềm (soft
+                skills)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết 2 dạng trình bày kỹ năng: liệt kê và đánh giá thang
+                điểm</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nhớ cấu trúc tên file CV chuẩn: "CV - Họ tên - Vị
+                trí.pdf"</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Hiểu ATS là gì và cách tối ưu CV cho ATS (từ khóa, cấu trúc đơn
+                giản)</label
+              >
+            </div>
+          </div>
+
+          <div class="cb-group">
+            <div class="cb-group-title">Lỗi thường gặp khi viết CV</div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nhớ 9 lỗi thường gặp và cách khắc phục</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết email chuyên nghiệp không dùng biệt danh/nickname</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Hiểu lỗi mục tiêu công việc chung chung vs đặc thù (và cách
+                viết đúng)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết không được đề cập mức lương trong CV</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon" style="background: var(--c3l)">📧</div>
+            <div>
+              <div class="card-title">Chương 3 – Thư ứng tuyển & Email</div>
+            </div>
+          </div>
+
+          <div class="cb-group">
+            <div class="cb-group-title">Khối F – Thư ứng tuyển</div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nắm khái niệm và vai trò của thư ứng tuyển ("linh hồn của hồ
+                sơ")</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết 4 phần cấu trúc thư ứng tuyển</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Phân biệt được thư ứng tuyển và CV (mục đích, độ dài, hình
+                thức)</label
+              >
+            </div>
+          </div>
+
+          <div class="cb-group">
+            <div class="cb-group-title">Khối G – Email chuyên nghiệp</div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết các tình huống nên dùng email (lưu nội dung, gửi nhiều
+                người, không cần tức thì)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nắm 6 thành phần cấu trúc email chuẩn</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Biết quy tắc 48 giờ trong trả lời email</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Phân biệt email xin việc và thư ứng tuyển (5 tiêu chí)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Nhớ 9 kỹ năng viết email chuyên nghiệp (đặc biệt: nhập địa chỉ
+                người nhận SAU CÙNG)</label
+              >
+            </div>
+            <div class="cb-item" onclick="toggleCb(this)">
+              <input type="checkbox" /><label
+                >Liệt kê được 7 lỗi thường gặp khi viết email</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 1rem">
+          <button class="btn-sec" onclick="resetChecklist()">
+            Đặt lại checklist
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== QUIZ ===== -->
+      <div class="section" id="sec-quiz">
+        <div class="ch-label">Trắc nghiệm ôn thi – 45 câu hỏi</div>
+        <div class="quiz-filter">
+          <button class="qfbtn active" onclick="filterQuiz('all', this)">
+            Tất cả (45)
+          </button>
+          <button class="qfbtn" onclick="filterQuiz('ch1', this)">
+            Chương 1 (18)
+          </button>
+          <button class="qfbtn" onclick="filterQuiz('ch2', this)">
+            Chương 2 (14)
+          </button>
+          <button class="qfbtn" onclick="filterQuiz('ch3', this)">
+            Chương 3 (13)
+          </button>
+        </div>
+        <div
+          style="display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap"
+        >
+          <button class="btn-primary" onclick="resetQuiz()">
+            🔄 Làm lại từ đầu
+          </button>
+          <button class="btn-sec" onclick="showScore()">📊 Xem điểm</button>
+        </div>
+        <div
+          id="quiz-score-box"
+          class="quiz-score"
+          style="display: none; margin-bottom: 1rem"
+        >
+          <div class="big" id="score-num">0/0</div>
+          <div
+            style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem"
+          >
+            Câu trả lời đúng
+          </div>
+        </div>
+        <div id="quiz-container"></div>
+      </div>
+    </div>
+    <!-- end main -->
+
+    <script>
+      const questions = [
+        // CHƯƠNG 1
+        {
+          ch: "ch1",
+          q: "Theo Nghị định 30/2020/NĐ-CP, văn bản hành chính được định nghĩa là gì?",
+          opts: [
+            "Văn bản của cơ quan nhà nước ban hành",
+            "Văn bản hình thành trong quá trình chỉ đạo, điều hành, giải quyết công việc của các cơ quan, tổ chức",
+            "Văn bản có dấu và chữ ký của thủ trưởng cơ quan",
+            "Văn bản được ban hành theo quy định pháp luật",
+          ],
+          ans: 1,
+          exp: 'Theo khoản 3 Điều 3 NĐ 30/2020/NĐ-CP: "Văn bản hành chính là văn bản hình thành trong quá trình chỉ đạo, điều hành, giải quyết công việc của các cơ quan, tổ chức."',
+        },
+        {
+          ch: "ch1",
+          q: "Phông chữ bắt buộc dùng trong văn bản hành chính theo quy định là gì?",
+          opts: ["Arial", "Times New Roman", "Calibri", "Tahoma"],
+          ans: 1,
+          exp: "Quy định rõ: Phông chữ tiếng Việt Times New Roman, bộ mã ký tự Unicode theo Tiêu chuẩn Việt Nam TCVN 6909:2001, màu đen.",
+        },
+        {
+          ch: "ch1",
+          q: "Định lề trái của văn bản hành chính theo NĐ 30/2020 là bao nhiêu mm?",
+          opts: ["20–25 mm", "25–30 mm", "30–35 mm", "15–20 mm"],
+          ans: 2,
+          exp: "Lề trái: 30–35 mm. Lề phải: 15–20 mm. Lề trên và dưới: 20–25 mm.",
+        },
+        {
+          ch: "ch1",
+          q: 'Ký hiệu "TL." trên văn bản hành chính có nghĩa là gì?',
+          opts: [
+            "Thay lệnh",
+            "Thừa lệnh",
+            "Thừa ủy quyền",
+            "Thay mặt lãnh đạo",
+          ],
+          ans: 1,
+          exp: "TL. = Thừa lệnh. Các ký hiệu: TM. = Thay mặt tập thể, KT. = Ký thay, TUQ. = Thừa uỷ quyền, Q. = Được giao quyền cấp trưởng.",
+        },
+        {
+          ch: "ch1",
+          q: "Đặc trưng nào của văn bản hành chính thể hiện qua việc sử dụng mẫu văn bản chuẩn, cấu trúc câu và từ ngữ thống nhất?",
+          opts: [
+            "Tính chính xác",
+            "Tính khách quan",
+            "Tính khuôn mẫu",
+            "Tính hiệu lực",
+          ],
+          ans: 2,
+          exp: "Tính khuôn mẫu: sử dụng mẫu văn bản chuẩn, cấu trúc câu và từ ngữ chuyên ngành thống nhất, giúp văn bản dễ đọc, dễ hiểu, tự động xử lý được.",
+        },
+        {
+          ch: "ch1",
+          q: "Thông báo thuộc loại văn bản hành chính nào?",
+          opts: [
+            "Văn bản hành chính cá biệt",
+            "Văn bản hành chính thông thường",
+            "Văn bản quy phạm pháp luật",
+            "Văn bản hành chính đặc biệt",
+          ],
+          ans: 1,
+          exp: "Thông báo là văn bản hành chính thông thường – mang tính chất thông tin, điều hành, trao đổi công việc. VB cá biệt là Quyết định, Chỉ thị...",
+        },
+        {
+          ch: "ch1",
+          q: "Theo quy định, khổ giấy dùng để soạn văn bản hành chính là gì?",
+          opts: [
+            "A3 (297×420mm)",
+            "A4 (210×297mm)",
+            "A5 (148×210mm)",
+            "B4 (250×353mm)",
+          ],
+          ans: 1,
+          exp: "Khổ giấy bắt buộc: A4 (210 mm × 297 mm). Trường hợp có bảng biểu thì có thể trình bày theo chiều rộng.",
+        },
+        {
+          ch: "ch1",
+          q: "Thông báo khác Tờ trình ở điểm cơ bản nào?",
+          opts: [
+            "Thông báo do thủ trưởng ký, Tờ trình do nhân viên ký",
+            "Thông báo truyền đạt thông tin (một chiều), Tờ trình đề xuất xin phê duyệt lên cấp trên",
+            "Thông báo cần lý do cụ thể, Tờ trình không cần",
+            "Thông báo dài hơn Tờ trình",
+          ],
+          ans: 1,
+          exp: "Thông báo: truyền đạt thông tin, không bắt buộc nêu lý do. Tờ trình: đề xuất lên cấp trên xin phê duyệt, bắt buộc phân tích thực trạng và lý do.",
+        },
+        {
+          ch: "ch1",
+          q: "Ai có thể ký Thông báo trong một cơ quan/tổ chức?",
+          opts: [
+            "Chỉ thủ trưởng cơ quan",
+            "Chỉ phó thủ trưởng",
+            "Người được phân công hoặc uỷ quyền, ký thừa lệnh thủ trưởng",
+            "Bất kỳ nhân viên nào",
+          ],
+          ans: 2,
+          exp: "Không bắt buộc phải là thủ trưởng. Người có trách nhiệm về lĩnh vực được phân công hoặc uỷ quyền có thể ký thừa lệnh. VD: Trưởng phòng Kinh tế-Tài chính ký TB lịch thu học phí.",
+        },
+        {
+          ch: "ch1",
+          q: "Công văn là loại văn bản hành chính có đặc điểm gì?",
+          opts: [
+            'Có tên loại cụ thể, ghi rõ "Công văn"',
+            "Không có tên loại cụ thể, dùng phổ biến nhất",
+            "Chỉ dùng giữa cơ quan với công dân",
+            "Chỉ dùng để đề nghị cấp trên phê duyệt",
+          ],
+          ans: 1,
+          exp: "Công văn là hình thức văn bản KHÔNG có tên loại cụ thể, là phương tiện giao tiếp chính thức của các cơ quan với nhau và với công dân.",
+        },
+        {
+          ch: "ch1",
+          q: "Có bao nhiêu loại công văn hành chính được đề cập trong bài giảng?",
+          opts: ["3 loại", "4 loại", "5 loại", "6 loại"],
+          ans: 2,
+          exp: "5 loại công văn: (1) Phúc đáp, (2) Đề nghị, (3) Đôn đốc/chấn chỉnh, (4) Mời họp/đại hội, (5) Giải thích.",
+        },
+        {
+          ch: "ch1",
+          q: "Khi soạn công văn đôn đốc, văn phong cần đặc điểm gì?",
+          opts: [
+            "Mềm dẻo, khiêm tốn",
+            "Lịch sự, có sự động viên an ủi",
+            "Nghiêm khắc, nêu khả năng xảy ra hậu quả nếu không hoàn thành kịp thời",
+            "Cầu thị, thể hiện mong muốn hợp tác",
+          ],
+          ans: 2,
+          exp: "Công văn đôn đốc: dùng lời lẽ nghiêm khắc, nêu lý do kích thích nhiệt tình, có thể nêu khả năng xảy ra hậu quả nếu không hoàn thành kịp thời.",
+        },
+        {
+          ch: "ch1",
+          q: "Kết thúc của Tờ trình thường kết bằng cụm từ nào?",
+          opts: [
+            "Trân trọng cảm ơn!",
+            "Xin được phê duyệt!",
+            "Trân trọng kính trình!",
+            "Kính chào trân trọng!",
+          ],
+          ans: 2,
+          exp: 'Kết thúc Tờ trình thường dùng "Trân trọng kính trình!" – thể hiện sự tôn trọng và đề nghị cấp trên xem xét phê duyệt.',
+        },
+        {
+          ch: "ch1",
+          q: "Số trang của văn bản hành chính được trình bày như thế nào?",
+          opts: [
+            "Đặt ở góc dưới phải, bắt đầu từ trang 1",
+            "Đặt canh giữa trong lề trên, bắt đầu từ số 1, không hiển thị trang đầu",
+            "Đặt ở góc dưới trái, hiển thị tất cả các trang",
+            "Đặt canh giữa trong lề dưới",
+          ],
+          ans: 1,
+          exp: "Số trang: đánh từ số 1, chữ số Ả Rập, cỡ chữ 13–14, đứng, đặt canh giữa theo chiều ngang trong phần lề trên, KHÔNG hiển thị số trang thứ nhất.",
+        },
+        {
+          ch: "ch1",
+          q: "Trích yếu nội dung Công văn (V/v) được trình bày ở vị trí nào?",
+          opts: [
+            "Dưới tên loại văn bản, canh giữa",
+            "Dưới số và ký hiệu văn bản, canh giữa, cỡ chữ 12–13",
+            "Bên phải của số ký hiệu",
+            "Trên tên cơ quan ban hành",
+          ],
+          ans: 1,
+          exp: 'Đối với Công văn, trích yếu (V/v) trình bày tại ô số 5b: sau chữ "V/v", chữ in thường, cỡ 12–13, đứng, canh giữa dưới số và ký hiệu, cách 6pt.',
+        },
+        {
+          ch: "ch1",
+          q: 'Đặc trưng "Tính hiệu lực" của văn bản hành chính đòi hỏi điều gì?',
+          opts: [
+            "Văn bản phải ngắn gọn, dễ hiểu",
+            "Văn bản phải phù hợp pháp luật, đúng thẩm quyền, nội dung khả thi",
+            "Văn bản phải dùng ngôn ngữ trang trọng",
+            "Văn bản phải được ban hành đúng thể thức",
+          ],
+          ans: 1,
+          exp: "Tính hiệu lực: phù hợp quy định pháp luật, đảm bảo thể thức đúng quy định, khả thi, có thẩm quyền ban hành, tác động trực tiếp đến hành vi và quyền lợi.",
+        },
+        {
+          ch: "ch1",
+          q: "Trong phần mở đầu của Tờ trình, người soạn thảo cần làm gì?",
+          opts: [
+            "Nêu ngay yêu cầu phê duyệt",
+            "Phân tích tình hình thực tế, làm nổi bật sự cần thiết của đề xuất",
+            "Liệt kê các văn bản pháp lý liên quan",
+            "Đưa ra phương án giải quyết cụ thể",
+          ],
+          ans: 1,
+          exp: "Phần mở đầu Tờ trình: phân tích tình hình thực tế để làm nổi bật nhu cầu cấp thiết của vấn đề, dùng ngôn ngữ khách quan, góc nhìn chuyên nghiệp.",
+        },
+        {
+          ch: "ch1",
+          q: "Khi viết Thông báo truyền đạt chủ trương/chính sách mới, nội dung cần bao gồm?",
+          opts: [
+            "Chỉ nêu tên văn bản mới",
+            "Tên văn bản + tóm tắt nội dung cơ bản + yêu cầu quán triệt, triển khai, thực hiện",
+            "Tóm tắt nội dung và đề nghị phê duyệt",
+            "Chỉ yêu cầu thực hiện",
+          ],
+          ans: 1,
+          exp: "TB truyền đạt chủ trương: Nhắc lại tên văn bản cần truyền đạt + tóm tắt nội dung cơ bản của chủ trương chính sách + yêu cầu quán triệt, triển khai, thực hiện.",
+        },
+
+        // CHƯƠNG 2
+        {
+          ch: "ch2",
+          q: "CV là viết tắt của cụm từ tiếng Latin nào?",
+          opts: [
+            "Career Vitae",
+            "Curriculum Vitae",
+            "Career Vision",
+            "Curricular View",
+          ],
+          ans: 1,
+          exp: "CV = Curriculum Vitae (tiếng Latin), còn được gọi là Resume – tài liệu tóm tắt chuyên nghiệp về trình độ, kinh nghiệm, kỹ năng của cá nhân.",
+        },
+        {
+          ch: "ch2",
+          q: "Trong CV, phần kinh nghiệm làm việc nên được sắp xếp theo thứ tự nào?",
+          opts: [
+            "Từ xa đến gần (kinh nghiệm cũ nhất trước)",
+            "Từ gần đến xa (kinh nghiệm gần đây nhất trước)",
+            "Theo mức độ quan trọng",
+            "Theo bảng chữ cái tên công ty",
+          ],
+          ans: 1,
+          exp: "Kinh nghiệm liệt kê theo thứ tự thời gian NGƯỢC (từ gần đến xa) để nhà tuyển dụng dễ đánh giá quá trình phát triển gần đây nhất.",
+        },
+        {
+          ch: "ch2",
+          q: "Cấu trúc tên file CV chuẩn là gì?",
+          opts: [
+            "CV.pdf",
+            "HoTen.pdf",
+            "CV - Họ tên ứng viên - Vị trí ứng tuyển.pdf",
+            "HoTen_UngTuyen.doc",
+          ],
+          ans: 2,
+          exp: 'Cấu trúc 1: "CV - Họ tên ứng viên - Vị trí ứng tuyển.pdf" hoặc Cấu trúc 2: "CV - Vị trí ứng tuyển - Họ tên ứng viên.pdf". Không dùng tiếng Việt có dấu trong tên file.',
+        },
+        {
+          ch: "ch2",
+          q: "Khi viết mục tiêu nghề nghiệp, ứng viên nên bắt đầu bằng bước nào?",
+          opts: [
+            "Viết ngay mục tiêu cá nhân",
+            "Tìm hiểu kỹ bản mô tả công việc (Job Description)",
+            "Liệt kê tất cả kỹ năng của bản thân",
+            "Tham khảo CV của người khác",
+          ],
+          ans: 1,
+          exp: "Bước 1 trong 5 bước viết mục tiêu nghề nghiệp: Tìm hiểu kỹ JD để hiểu yêu cầu, nhiệm vụ, từ khóa quan trọng – từ đó viết mục tiêu phù hợp.",
+        },
+        {
+          ch: "ch2",
+          q: "Hệ thống ATS trong tuyển dụng là gì?",
+          opts: [
+            "Automatic Talent System – hệ thống tìm kiếm nhân tài",
+            "Applicant Tracking System – hệ thống sàng lọc và phân loại hồ sơ tự động",
+            "Application Testing System – hệ thống kiểm tra hồ sơ",
+            "Advanced Talent Selection – hệ thống lựa chọn nhân tài nâng cao",
+          ],
+          ans: 1,
+          exp: "ATS = Applicant Tracking System – hệ thống tự động sàng lọc và phân loại hồ sơ ứng viên, được dùng rộng rãi trong tuyển dụng hiện đại.",
+        },
+        {
+          ch: "ch2",
+          q: "Lỗi nào trong các lỗi sau KHÔNG phải là lỗi thường gặp khi viết CV?",
+          opts: [
+            "Ảnh selfie, ảnh chụp chung",
+            "Mục tiêu chung chung, không có điểm nhấn",
+            "Nêu rõ thành tích cụ thể với số liệu",
+            "Email thiếu chuyên nghiệp, dùng biệt danh",
+          ],
+          ans: 2,
+          exp: "Nêu rõ thành tích cụ thể với số liệu là ĐÚNG và nên làm. Các lỗi thường gặp: ảnh không nghiêm túc, email không chuyên nghiệp, mục tiêu chung chung, sai chính tả...",
+        },
+        {
+          ch: "ch2",
+          q: "Kỹ năng cứng (Hard Skills) là gì? Đâu là ví dụ đúng?",
+          opts: [
+            "Kỹ năng giao tiếp và làm việc nhóm",
+            "Kỹ năng chuyên môn/kỹ thuật đo lường được: Python, Google Analytics, Kế toán tài chính",
+            "Kỹ năng giải quyết vấn đề và sáng tạo",
+            "Kỹ năng thích ứng với môi trường làm việc",
+          ],
+          ans: 1,
+          exp: "Kỹ năng cứng (Hard skills): kỹ năng chuyên môn đo lường được (Python, Java, SEO, Google Analytics, Kế toán). Kỹ năng mềm: giao tiếp, nhóm, giải quyết vấn đề.",
+        },
+        {
+          ch: "ch2",
+          q: "Trong phần sở thích của CV, ứng viên nên tránh liệt kê sở thích nào?",
+          opts: [
+            "Leo núi (thể hiện chinh phục thử thách)",
+            "Đọc sách về kinh doanh (liên quan công việc)",
+            "Nghe nhạc và xem phim (quá chung chung)",
+            "Chơi bóng đá (thể hiện làm việc nhóm)",
+          ],
+          ans: 2,
+          exp: 'Tránh sở thích quá phổ biến như "nghe nhạc", "xem phim" vì không tạo ấn tượng đặc biệt. Chọn sở thích đặc trưng, liên quan đến kỹ năng công việc.',
+        },
+        {
+          ch: "ch2",
+          q: "Người tham chiếu trong CV đóng vai trò gì?",
+          opts: [
+            "Người giới thiệu ứng viên vào công ty",
+            "Người xác nhận thông tin kinh nghiệm, kỹ năng của ứng viên, hỗ trợ quyết định tuyển dụng",
+            "Người đào tạo ứng viên trước phỏng vấn",
+            "Người bảo lãnh tài chính cho ứng viên",
+          ],
+          ans: 1,
+          exp: "Người tham chiếu: xác nhận thông tin về kinh nghiệm, kỹ năng, phẩm chất của ứng viên. NTD liên hệ để xác minh chi tiết trong CV (chức danh, thời gian, thành tích).",
+        },
+        {
+          ch: "ch2",
+          q: "Khi viết phần kinh nghiệm trong CV cho ứng viên chưa có kinh nghiệm toàn thời gian, có thể thay thế bằng gì?",
+          opts: [
+            "Bỏ qua phần này hoàn toàn",
+            "Kinh nghiệm bán thời gian/thực tập, dự án cá nhân, hoạt động ngoại khóa, môn học thực hành",
+            "Chỉ liệt kê môn học đã học",
+            'Ghi "không có kinh nghiệm"',
+          ],
+          ans: 1,
+          exp: "Ứng viên chưa có kinh nghiệm toàn thời gian có thể dùng: kinh nghiệm bán thời gian/thực tập; dự án cá nhân/ngoại khóa; môn học thực hành; kỹ năng mềm với ví dụ chứng minh.",
+        },
+        {
+          ch: "ch2",
+          q: "Lỗi nào trong việc đặt tên file CV là SAI?",
+          opts: [
+            '"CV - Nguyen Van A - SEO Content Writer.pdf"',
+            '"CV - Nhan vien Ban hang - Nguyen Van A.pdf"',
+            '"CV xin việc.pdf" hoặc "HoSo.pdf"',
+            '"NguyenVanA_CV_UngTuyenBanHang.docx"',
+          ],
+          ans: 2,
+          exp: 'Tên file chung chung như "CV xin việc.pdf" hay "HoSo.pdf" là SAI – NTD không biết ứng viên là ai và ứng tuyển vị trí nào, gây khó khăn quản lý hồ sơ.',
+        },
+        {
+          ch: "ch2",
+          q: "Mục tiêu nghề nghiệp trong CV nên dài bao nhiêu?",
+          opts: [
+            "Càng dài càng tốt để thể hiện đầy đủ",
+            "Ngắn gọn, súc tích, tập trung (không nên quá 3–5 dòng)",
+            "Đúng 1 trang A4",
+            "Ít nhất 2 đoạn văn",
+          ],
+          ans: 1,
+          exp: "Mục tiêu nghề nghiệp phải ngắn gọn, súc tích. NTD chỉ dành vài giây đầu để quyết định có đọc kỹ CV không – quá dài sẽ gây mất hứng thú.",
+        },
+        {
+          ch: "ch2",
+          q: "Khi sắp xếp bằng cấp trong CV, nên theo thứ tự nào?",
+          opts: [
+            "Từ thấp đến cao (cử nhân trước, tiến sĩ sau)",
+            "Từ cao đến thấp (tiến sĩ/thạc sĩ trước, đại học/cao đẳng sau)",
+            "Theo thứ tự alphabet",
+            "Theo thứ tự năm học",
+          ],
+          ans: 1,
+          exp: "Sắp xếp bằng cấp: bắt đầu bằng bằng cấp cao nhất (tiến sĩ, thạc sĩ) rồi đến thấp hơn. Cách này giúp NTD nắm ngay trình độ cao nhất của ứng viên.",
+        },
+        {
+          ch: "ch2",
+          q: "Điều gì KHÔNG nên đề cập trong CV?",
+          opts: [
+            "Thành tích cụ thể với số liệu",
+            "Kỹ năng phù hợp vị trí ứng tuyển",
+            "Mức lương mong muốn hoặc yêu cầu phúc lợi",
+            "Kinh nghiệm thực tập liên quan",
+          ],
+          ans: 2,
+          exp: "Không đề cập mức lương/yêu cầu phúc lợi trong CV – điều này khiến NTD cho rằng ứng viên chỉ quan tâm lợi ích cá nhân, hạn chế cơ hội đàm phán sau.",
+        },
+
+        // CHƯƠNG 3
+        {
+          ch: "ch3",
+          q: "Thư ứng tuyển (Cover Letter) có chiều dài thường là bao nhiêu?",
+          opts: [
+            "Bằng CV (2–4 trang)",
+            "Khoảng 1 trang A4",
+            "Nửa trang A4",
+            "Không giới hạn độ dài",
+          ],
+          ans: 1,
+          exp: "Thư ứng tuyển ngắn gọn hơn CV, thường chỉ dài khoảng 1 trang A4. Đây là điểm phân biệt quan trọng với CV (thường dài 2–4 trang).",
+        },
+        {
+          ch: "ch3",
+          q: '"Quy tắc 48 giờ" trong email chuyên nghiệp có nghĩa là gì?',
+          opts: [
+            "Email phải được soạn trong 48 giờ",
+            "Trả lời email trong vòng 48 giờ để thể hiện sự chuyên nghiệp",
+            "Lưu email trong 48 giờ trước khi gửi",
+            "Kiểm tra email mỗi 48 giờ",
+          ],
+          ans: 1,
+          exp: "Quy tắc 48 giờ: phải trả lời email trong vòng 48 giờ – kể cả email gửi nhầm (chỉ cần xác nhận đã nhận và sẽ phản hồi sau) – thể hiện sự chuyên nghiệp và tôn trọng.",
+        },
+        {
+          ch: "ch3",
+          q: "Điểm khác biệt chính giữa Email xin việc và Thư ứng tuyển (Cover Letter) là gì?",
+          opts: [
+            "Email xin việc dài hơn Cover Letter",
+            "Email xin việc viết trực tiếp trong nội dung email; Cover Letter là file đính kèm riêng (.docx/.pdf)",
+            "Cover Letter không cần gửi kèm CV",
+            "Email xin việc không cần tiêu đề",
+          ],
+          ans: 1,
+          exp: "Email xin việc: viết trực tiếp trong khung soạn thảo email, ngắn gọn. Cover Letter: tạo thành file riêng (.docx/.pdf) đính kèm cùng CV, chi tiết hơn.",
+        },
+        {
+          ch: "ch3",
+          q: 'Khi soạn email chuyên nghiệp, nên nhập địa chỉ người nhận vào trường "To" khi nào?',
+          opts: [
+            "Trước tiên, để không quên người nhận",
+            "Sau cùng, sau khi đã kiểm tra xong nội dung và file đính kèm",
+            "Cùng lúc với khi viết tiêu đề",
+            "Không quan trọng thứ tự",
+          ],
+          ans: 1,
+          exp: "Nhập địa chỉ email người nhận SAU CÙNG – để tránh trường hợp email bị gửi đi nhầm khi chưa hoàn chỉnh nội dung hoặc quên đính kèm file.",
+        },
+        {
+          ch: "ch3",
+          q: "Trong email, dung lượng file đính kèm nên giữ dưới bao nhiêu để tránh lỗi gửi mail?",
+          opts: ["500KB", "1MB", "5MB", "10MB"],
+          ans: 1,
+          exp: "Giữ dung lượng file đính kèm dưới 1MB để tránh lỗi gửi mail do giới hạn dung lượng. Nếu file lớn hơn, nén file hoặc gửi qua Google Drive.",
+        },
+        {
+          ch: "ch3",
+          q: "Thư ứng tuyển đóng vai trò nào trong hồ sơ xin việc?",
+          opts: [
+            "Thay thế hoàn toàn cho CV",
+            'Là "linh hồn" của hồ sơ, giúp thể hiện thế mạnh và phong thái chuyên nghiệp',
+            "Chỉ cần thiết khi NTD yêu cầu bắt buộc",
+            "Là danh sách liệt kê kỹ năng bổ sung",
+          ],
+          ans: 1,
+          exp: 'Thư ứng tuyển được xem như "linh hồn" của hồ sơ, giúp ứng viên thể hiện thế mạnh, năng lực, phong thái chuyên nghiệp, và hiểu biết về vị trí ứng tuyển.',
+        },
+        {
+          ch: "ch3",
+          q: "Phần kết thúc của thư ứng tuyển cần làm gì?",
+          opts: [
+            "Liệt kê lại toàn bộ kỹ năng",
+            "Nhấn mạnh đủ năng lực + cung cấp thông tin liên hệ + mong muốn phỏng vấn + cảm ơn + ký tên",
+            "Chỉ cần lời cảm ơn",
+            "Nêu lại kinh nghiệm quan trọng nhất",
+          ],
+          ans: 1,
+          exp: 'Kết thúc thư ứng tuyển: khẳng định đủ kỹ năng + thông tin liên hệ (SĐT, email) + mong được phỏng vấn + cảm ơn + ký tên "Trân trọng".',
+        },
+        {
+          ch: "ch3",
+          q: "Lỗi phổ biến nào thường gặp khi viết Subject (tiêu đề) email?",
+          opts: [
+            "Tiêu đề quá ngắn",
+            "Bỏ trống tiêu đề hoặc viết tiêu đề không liên quan nội dung",
+            "Tiêu đề quá dài",
+            "Dùng tiếng Anh trong tiêu đề",
+          ],
+          ans: 1,
+          exp: 'Lỗi 6: Không viết Subject hoặc Subject không liên quan nội dung → NTD khó theo dõi, dễ bỏ qua, email có thể bị coi là thư rác. VD sai: "Xin chào" → Đúng: "Xin phép gặp thầy về bài tập"',
+        },
+        {
+          ch: "ch3",
+          q: "Font chữ và cỡ chữ nên dùng trong email chuyên nghiệp là gì?",
+          opts: [
+            "Comic Sans, cỡ 10",
+            "Arial hoặc Times New Roman, cỡ 12, màu đen",
+            "Verdana, cỡ 14, màu xanh",
+            "Courier New, cỡ 11, màu đỏ",
+          ],
+          ans: 1,
+          exp: "Font chữ nên dùng: Arial, Segoe UI hoặc Times New Roman, cỡ chữ 12, màu đen – đảm bảo dễ đọc và tránh mất tập trung vào màu sắc.",
+        },
+        {
+          ch: "ch3",
+          q: "Cấu trúc 4 phần của thư ứng tuyển là gì?",
+          opts: [
+            "Mở đầu – Nội dung – Kết luận – Tài liệu tham chiếu",
+            "Tiêu đề – Mở đầu – Nội dung chính – Kết thúc",
+            "Giới thiệu – Kinh nghiệm – Kỹ năng – Lời chào",
+            "Thông tin cá nhân – Mục tiêu – Nội dung – Ký tên",
+          ],
+          ans: 1,
+          exp: "4 phần thư ứng tuyển: (1) Tiêu đề (họ tên, vị trí, thông tin liên hệ); (2) Mở đầu (kính gửi, vị trí ứng tuyển); (3) Nội dung chính (kinh nghiệm, kỹ năng); (4) Kết thúc (cảm ơn, ký tên).",
+        },
+        {
+          ch: "ch3",
+          q: "Khi gửi nhiều file đính kèm trong email, nên làm gì để gọn gàng?",
+          opts: [
+            "Gửi từng email riêng cho mỗi file",
+            "Nén các file thành một tập tin .zip",
+            "Chỉ gửi file quan trọng nhất",
+            "Đính kèm tất cả riêng lẻ",
+          ],
+          ans: 1,
+          exp: "Khi cần gửi nhiều file, nén thành một tập tin .zip để email gọn gàng và tiện lợi cho người nhận. Đảm bảo mọi file có tên rõ ràng và thống nhất.",
+        },
+        {
+          ch: "ch3",
+          q: 'Lỗi nào trong email thể hiện việc "lạm dụng email"?',
+          opts: [
+            "Gửi email thông báo chính sách mới cho toàn bộ nhân viên",
+            "Gửi email xin phê duyệt việc khẩn cấp thay vì gọi điện trực tiếp",
+            "Gửi email báo cáo tiến độ hàng tuần",
+            "Gửi email đặt lịch họp",
+          ],
+          ans: 1,
+          exp: "Lạm dụng email: dùng email cho mọi trường hợp kể cả khi cần phản hồi nhanh. VD: việc khẩn cần xin phê duyệt ngay → gọi điện/nhắn tin nhanh hơn email (NTD có thể không kiểm tra email ngay).",
+        },
+        {
+          ch: "ch3",
+          q: "Nếu không biết tên người phỏng vấn khi viết thư ứng tuyển, có thể dùng cách xưng hô nào?",
+          opts: [
+            '"Kính gửi người tuyển dụng"',
+            '"Kính gửi Bộ phận Tuyển dụng" hoặc "Kính gửi Công ty [Tên công ty]"',
+            "Bỏ phần lời chào",
+            'Ghi "Kính gửi Sếp"',
+          ],
+          ans: 1,
+          exp: 'Nếu không biết tên người phỏng vấn, có thể dùng: "Kính gửi Bộ phận Tuyển dụng" hoặc "Kính gửi Công ty [Tên công ty]" – lịch sự và chuyên nghiệp.',
+        },
+      ];
+
+      let currentFilter = "all";
+      let answered = {};
+
+      function renderQuiz(filter) {
+        const filtered =
+          filter === "all"
+            ? questions
+            : questions.filter((q) => q.ch === filter);
+        const container = document.getElementById("quiz-container");
+        container.innerHTML = "";
+        filtered.forEach((q, i) => {
+          const key = questions.indexOf(q);
+          const div = document.createElement("div");
+          div.className = "quiz-card";
+          div.dataset.key = key;
+          const chLabel =
+            q.ch === "ch1" ? "Ch.1" : q.ch === "ch2" ? "Ch.2" : "Ch.3";
+          let optsHtml = q.opts
+            .map((o, j) => {
+              const keys = ["A", "B", "C", "D"];
+              let cls = "quiz-opt";
+              if (answered[key] !== undefined) {
+                if (j === q.ans) cls += " correct";
+                else if (j === answered[key] && answered[key] !== q.ans)
+                  cls += " wrong";
+              }
+              return `<div class="${cls}" onclick="selectOpt(this,${key},${j},${q.ans})"><span class="okey">${keys[j]}.</span> ${o}</div>`;
+            })
+            .join("");
+          div.innerHTML = `<div class="quiz-q"><span class="qnum">${chLabel} · Q${i + 1}</span> ${q.q}</div><div class="quiz-opts">${optsHtml}</div><div class="quiz-explain${answered[key] !== undefined ? " show" : ""}" id="exp-${key}">${q.exp}</div>`;
+          container.appendChild(div);
+        });
+      }
+
+      function selectOpt(el, key, chosen, ans) {
+        if (answered[key] !== undefined) return;
+        answered[key] = chosen;
+        const card = el.closest(".quiz-card");
+        const opts = card.querySelectorAll(".quiz-opt");
+        opts.forEach((o, j) => {
+          if (j === ans) o.classList.add("correct");
+          else if (j === chosen && chosen !== ans) o.classList.add("wrong");
+        });
+        card.querySelector(".quiz-explain").classList.add("show");
+        updateScore();
+      }
+
+      function filterQuiz(f, btn) {
+        currentFilter = f;
+        document
+          .querySelectorAll(".qfbtn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderQuiz(f);
+      }
+
+      function resetQuiz() {
+        answered = {};
+        document.getElementById("quiz-score-box").style.display = "none";
+        renderQuiz(currentFilter);
+      }
+
+      function showScore() {
+        const filtered =
+          currentFilter === "all"
+            ? questions
+            : questions.filter((q) => q.ch === currentFilter);
+        const total = filtered.length;
+        let correct = 0;
+        filtered.forEach((q) => {
+          const key = questions.indexOf(q);
+          if (answered[key] === q.ans) correct++;
+        });
+        const box = document.getElementById("quiz-score-box");
+        document.getElementById("score-num").textContent =
+          correct + "/" + total;
+        box.style.display = "block";
+        box.scrollIntoView({ behavior: "smooth" });
+      }
+
+      function updateScore() {
+        const box = document.getElementById("quiz-score-box");
+        if (box.style.display === "block") showScore();
+      }
+
+      // NAVIGATION
+      function goTab(el, sec) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        el.classList.add("active");
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById("sec-" + sec).classList.add("active");
+      }
+
+      function goSection(sec) {
+        const tabs = document.querySelectorAll(".tab");
+        const secMap = { map: 0, s1: 1, s2: 2, s3: 3, checklist: 4, quiz: 5 };
+        tabs.forEach((t, i) => t.classList.toggle("active", i === secMap[sec]));
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById("sec-" + sec).classList.add("active");
+      }
+
+      // CHECKLIST
+      function toggleCb(el) {
+        const cb = el.querySelector("input[type=checkbox]");
+        cb.checked = !cb.checked;
+        el.classList.toggle("done", cb.checked);
+        updateProgress();
+      }
+
+      function updateProgress() {
+        const all = document.querySelectorAll(".cb-item input[type=checkbox]");
+        const done = document.querySelectorAll(
+          ".cb-item input[type=checkbox]:checked",
+        ).length;
+        const pct = all.length ? Math.round((done / all.length) * 100) : 0;
+        document.getElementById("prog-bar").style.width = pct + "%";
+        document.getElementById("prog-label").textContent =
+          `Tiến độ: ${done} / ${all.length} mục (${pct}%)`;
+      }
+
+      function resetChecklist() {
+        document.querySelectorAll(".cb-item").forEach((el) => {
+          el.querySelector("input").checked = false;
+          el.classList.remove("done");
+        });
+        updateProgress();
+      }
+
+      // INIT
+      renderQuiz("all");
+      updateProgress();
+    </script>
+  </body>
+</html>
